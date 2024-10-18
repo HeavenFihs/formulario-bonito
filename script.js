@@ -31,6 +31,7 @@ function sendData() {
     }
   })
   .catch(error => {
+    console.log(response)
     console.error('Error:', error);
     alert('Error al enviar el formulario.');
   });
