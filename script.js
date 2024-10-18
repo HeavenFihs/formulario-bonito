@@ -15,7 +15,7 @@ function sendData() {
     sche: document.querySelector('input[name="rating"]:checked')?.value
   };
 
-  fetch('https://script.google.com/macros/s/AKfycbzw7AWqet9cp-oPvgipUD75fnZZalk6NDx6fyV0diuwcSGFcgzrm3WKvQMDXat-RfgxEQ/exec', {
+  fetch('WEB_APP_URL', {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
