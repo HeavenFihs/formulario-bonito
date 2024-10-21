@@ -5,40 +5,60 @@ numberInput.addEventListener('input', function () {
     this.value = this.value.replace(/\D/g, '');
 });
 
-function sendData() {
-  const data = {
-    name: document.getElementById('name').value,
-    lnam: document.getElementById("apellido").value, 
-    email: document.getElementById('email').value,
-    code: document.getElementById("codigo").value,
-    teach: document.getElementById("profesor").value,
-    sche: document.querySelector('input[name="rating"]:checked')?.value
-  };
+const form = document.getElementById('surveyForm');
 
-  fetch('https://script.google.com/macros/s/AKfycbzw7AWqet9cp-oPvgipUD75fnZZalk6NDx6fyV0diuwcSGFcgzrm3WKvQMDXat-RfgxEQ/exec', {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  
+  const data = {
+    fecha: ajustarHoraDesdeUTC(),
+    nombre: document.getElementById('name').value,
+    apellido: document.getElementById('apellido').value,
+    email: document.getElementById("email").value,
+    codigo: document.getElementById("codigo").value,
+    profesor: document.getElementById("profesor").value,
+    horario: getSelectedValue("horario"),
+  };
+  
+  const url = 'https://script.google.com/macros/s/AKfycbw_Np_ZNon5-xdhGcxo2ezuRsiFVmte362-pBFhDEf9b2SurkegKQps41-7V-6yrzYj/exec';
+
+  fetch(url,{
+    redirect : "follow",
+    method : "POST",
+    body : JSON.stringify(data),
+    headers : {
+      "Content-Type": "application/json",
+    },
   })
-  .then(response => response.json())
-  .then(response => {
-    if (response.status === 'success') {
-      alert('Formulario enviado exitosamente.');
-    } else {
-      alert('Ocurrió un error al enviar el formulario. Inténtalo nuevamente.');
-    }
-  })
-  .catch(error => {
-    console.log(response)
-    console.error('Error:', error);
-    alert('Error al enviar el formulario.');
-  });
+    .then(response => response.text())
+    .then(dat => {
+      console.log('Datos enviados:', data);
+      // Puedes mostrar un mensaje de éxito al usuario aquí
+    })
+    .catch(error => {
+      console.error('Error al enviar los datos:', error);
+      // Puedes mostrar un mensaje de error al usuario aquí
+    });
+});
+
+function getSelectedValue(groupId) {
+  const selectedOption = document.querySelector('input[name='+groupId+']:checked');
+  return selectedOption ? selectedOption.value : null;
 }
 
-document.getElementById('surveyForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  alert('¡Formulario enviado exitosamente!');
-  sendData();
-});
+function ajustarHoraDesdeUTC() {
+  const fechaUTC = new Date();
+
+  // Ejemplo de formateo: "YYYY-MM-DD HH:MM:SS"
+  const year = fechaUTC.getFullYear();
+  const month = ('0' + (fechaUTC.getMonth() + 1)).slice(-2);
+  const day = ('0' + fechaUTC.getDate()).slice(-2);
+  const hours = ('0' + fechaUTC.getHours()).slice(-2);
+  const minutes = ('0' + fechaUTC.getMinutes()).slice(-2);
+  const seconds = ('0' + fechaUTC.getSeconds()).slice(-2);
+
+  const fechaFormateada = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  console.log('Fecha ajustada a la hora local:', fechaFormateada);
+
+  return fechaFormateada;
+}
