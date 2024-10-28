@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Estilo Google Forms</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Reserva de Horario</h2>
+        <form id="surveyForm" name = "surveyForm" action = "/submit" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" placeholder="Ingresa tu apellido" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Institucional</label>
+                <input type="email" id="email" name="email" placeholder="Ingresa tu correo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo">Código de Alumno</label>
+                <input type="text" id="codigo" name="codigo" placeholder="Ingresa tu código" required>
+            </div>
+
+            <div class="form-group">
+                <label for="profesor">Profesor(a) o asesor(a) a cargo</label>
+                <input type="text" id="profesor" name="profesor" placeholder="Ingresa el nombre de tu profesor(a) o asesor(a)" required>
+            </div>
+
+            <div class="form-group">
+                <label>Horario de uso</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="horario1" name="horario" value="1" required>
+                        <label for="horario1">13:00 - 14:00</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="horario2" name="horario" value="2">
+                        <label for="horario2">14:00 - 15:00</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="horario3" name="horario" value="3">
+                        <label for="horario3">15:00 - 16:00</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="horario4" name="horario" value="4">
+                        <label for="horario4">16:00 - 17:00</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="horario5" name="horario" value="5">
+                        <label for="horario5">17:00 - 18:00</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+    <script src={{url_for('static',filename='js/script.js')}}></script>
+
+</body>
+</html>

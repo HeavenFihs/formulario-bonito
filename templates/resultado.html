@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado del envío</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/resultado.css')}}">
+</head>
+<body>
+    <h1>Resultado del envío</h1>
+    {% if status == 'exito' %}
+        <p>¡Envío exitoso! Tu información ha sido procesada correctamente.</p>
+    {% elif status == 'error1' %}
+        <p>Error: El código ya fue utilizado hoy.</p>
+    {% elif status == 'error2' %}
+        <p>Error: El horario seleccionado ya está reservado por hoy.</p>
+    {% elif status == 'noConect' %}
+        <p>Error: Ocurrió un problema inesperado. Por favor, intenta nuevamente más tarde.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('index') }}">Volver al formulario</a>
+</body>
+</html>
