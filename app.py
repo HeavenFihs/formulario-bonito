@@ -17,6 +17,8 @@ def submit():
         email = request.form["email"]
         profesor = request.form["profesor"]
         horario = request.form["horario"]
+        ciclo = request.form["ciclo"]
+        ambiente = request.form["ambiente"]
 
     data = {
         "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -25,7 +27,9 @@ def submit():
         "apellido": apellido,
         "email": email,
         "profesor": profesor,
-        "horario": horario
+        "horario": horario,
+        "ciclo":ciclo,
+        "ambiente":ambiente
     }
 
     try:
